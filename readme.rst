@@ -6,7 +6,25 @@ Student management system is software to manage all day to day operations for a 
 designed to automate a school's diverse operations from classes, exams,Section,Subject,Register,Manage,Collecting info...
 
 *******************
-Release Information
+Teacher
+*******************
+*******************
+Student
+*******************
+*******************
+Classes
+*******************
+*******************
+Attendance
+*******************
+*******************
+Marksheet
+*******************
+*******************
+Accounting
+*******************
+*******************
+Calendar
 *******************
 
 *******
