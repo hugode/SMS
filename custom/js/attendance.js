@@ -3,6 +3,7 @@ $(document).ready(function () {
 
 	var kerkesa=$("#kerkesa").text();
 	if(kerkesa=='add') {/*Nese requesti i dhene do te jete i barabart me add ateher gjdo gje to ekzekutohet per me kriju pjessmarrrje*/
+		$("#takeAttendNav").addClass('active');
 
 		$("#type").on('change',function () {
 			/*Ne seclet option ne change do te shfaqen keto te dhena*/
@@ -109,7 +110,7 @@ $(document).ready(function () {
 
 						/*student*/
 
-					}else if(id==2)
+					}else if(id==2)/*Nese id e dhen prej select forms eshte 2 ateher kjo gjdo gje do te jete per teacher*/
 					{
 						var date=$("#date").val();
 						if(date=="")

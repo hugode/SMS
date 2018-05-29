@@ -138,7 +138,7 @@ class Attendance extends MY_Controller
 									ateher shfaq deri sa nuk ka ma*/
 									$x=1;
 									foreach ($studentData as $key=>$value) {
-
+										/*Perdorimi i funksionit nga model_attendance per te more informacione se a jane ruajtur ndonjeher*/
 										$attData=$this->model_attendance->fetchMarkAtt($classId,$sectionId,$date,$typeId,$value['student_id']);
 										$div.='<tr>
                                                  <td>
@@ -361,6 +361,7 @@ class Attendance extends MY_Controller
 
 		$classData=$this->model_classes->fetchClasesData($classId);
 		$sectionData=$this->model_section->fetchSectionByClassSection($sectionId);
+		$teacherData=$this->model_teacher->fetchTeacherData($sectionData['teacher_id']);
 
 
 		if($id==1)
@@ -369,6 +370,7 @@ class Attendance extends MY_Controller
 			     <div class="well">
 			     <center>
 			     <h4>Lloji pjessmarrjes: <b>Student</b></h4>
+			     <h4>Ligjeruesi: <b>'.$teacherData['fname'].' '.$teacherData['lname'].'</b></h4>
 			     <h4>Klasa : <b>'.$classData['class_name'].'</b> / Sektori : <b>'.$sectionData['section_name'].'</b></h4>
 			     <h4>Data : <b>'.$raportDate.'</b></h4>
 			     <small><b>P</b> :Prezent<br/>
@@ -406,9 +408,8 @@ class Attendance extends MY_Controller
 											}elseif($valueA['mark']==2){
 												$attendanceStatus='<span class="label label-danger">M</span>';
 											}elseif($valueA['mark']==3){
-												$attendanceStatus='<span class="label label-primary">L</span>';
-											}else
-											{
+												$attendanceStatus='<span class="label label-primary">V</span>';
+											}else{
 												$attendanceStatus='<span class="label label-default">UN</span>';
 											}
 										}
@@ -468,7 +469,7 @@ class Attendance extends MY_Controller
 						}elseif($valueA['mark']==2){
 							$attendanceStatus='<span class="label label-danger">M</span>';
 						}elseif($valueA['mark']==3){
-							$attendanceStatus='<span class="label label-primary">L</span>';
+							$attendanceStatus='<span class="label label-primary">V</span>';
 						}else
 						{
 							$attendanceStatus='<span class="label label-default">UN</span>';

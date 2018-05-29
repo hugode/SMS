@@ -30,6 +30,7 @@
 				<div class="form-group">
 					<label for="type" class="col-sm-3 control-label">Zgjedh llojin</label>
 					<div class="col-md-4">
+						<!--Select form for add Attendance-->
 						<select class="form-control" name="type" id="type">
 							<option value="">Select</option>
 							<option value="1">Student</option>
@@ -52,6 +53,7 @@
 				<div class="form-group">
 					<label for="type" class="col-sm-2 control-label">Select Type</label>
 					<div class="col-sm-4">
+						<!--Select form for getAttendance-->
 						<select class="form-control" name="type" id="type">
 							<option value="">Select</option>
 							<option value="1">Student</option>
@@ -75,7 +77,7 @@
 				</div>
 			</form>
 
-			<div id="report-div"></div>
+			<div id="report-div"></div><!--Gjdo gje do te shfaqet ketu nga js jquery-->
 			<?php
 		} // /report
 		?>
