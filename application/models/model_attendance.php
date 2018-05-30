@@ -97,10 +97,11 @@ class model_attendance extends CI_Model
 
 		if($typeId==1)
 		{
+			/*for student ku ban select te dhana duke u bazur ne report date classid section id student id dhe attendance type*/
 			$sql="SELECT * FROM attendance WHERE date_format(attendance_date,'%Y-%m-%d')='{$year}-{$month}-{$day}'
             AND class_id={$classId} AND section_id={$sectionId} AND student_id={$candidatId} AND attendance_type={$typeId}";
 			$query=$this->db->query($sql);
-			return $query->result_array();
+			return $query->result_array();/*kthimi ne array format*/
 		}elseif($typeId==2){
 			$sql="SELECT * FROM attendance WHERE date_format(attendance_date,'%Y-%m-%d')='{$year}-{$month}-{$day}' AND teacher_id={$candidatId} AND attendance_type={$typeId}";
 			$query=$this->db->query($sql);
@@ -108,7 +109,5 @@ class model_attendance extends CI_Model
 		}
 
 	}
-
-
-
+	
 }

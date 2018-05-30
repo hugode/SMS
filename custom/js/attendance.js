@@ -178,15 +178,27 @@ $(document).ready(function () {
 
 	}/*Te gjitha funksionet per optionin add*/
 	else if(kerkesa == 'report') {
-		$("#attenReport").addClass('active');
+		$("#attenReport").addClass('active');/*Nese jemi ne faqen report aktivizimi i classes aktive*/
 
 		/*Zgjedh tipin*/
-
+		/*---------------------------------------------------------------------------*/
+		/*Ne tyoe div kur bjem selectimin e llojit ateher do te shfaqet te dhenat sipas
+		* id te cilen e morim nga type nese id eshte 1 ateher do te ekzekutohen
+		* funksionet per studentat e cila ndodh me posht,por nese type shtyp teacher
+		* ateher type id eshte 2 dhe gjdo gje do te ekzekutohet per teacher.........*/
+		/*---------------------------------------------------------------------------*/
 		$("#type").unbind('change').bind('change', function() {
 			var typeId = $(this).val();
 
-			if(typeId == 1) {
+			if(typeId == 1) {/*Nese eshte 1 ekzekuto gjdo gje brenda keti ifi*/
+				/*student id div ekziston brenda formes getAttendanceReport dhe ku do te shfaqen
+				* dhe ne restin e perdorimi te formes ateher form getAttendanceReport do ti merr te dhenat
+				* edhe prej keti funksioni se do te shfaqen aty*/
 				$("#student-form").load(base_url + 'attendance/fetchClassAndSection', function() {
+					/*Gjdo gje e funksionit fetchClassAndSection() do te shfaqet ne student-form
+					* dhe ku ne onchange class te cilat do te jene te gjjithat klasat aktuale ne momentin
+					* e ndryshimin do te shfaqen sektoret sipas class id dhe ato te dhena shfaqen permes keti
+					* funksioni me posht*/
 					$("#className").on('change', function () {
 						var classId = $(this).val();
 						$("#sectionName").load(base_url + 'student/fetchClassSection/' + classId);
@@ -194,13 +206,14 @@ $(document).ready(function () {
 				});
 			}
 			else {
-				$("#student-form").html('');
+				$("#student-form").html('');/*nese type id asht ==2 ateher mos shfaq asgje*/
 			}
 		});
 
 		$("#reportDate").calendarsPicker({
 			calendar: $.calendars.instance(),
 			dateFormat: 'yyyy-mm',
+			/*Ne kete funksion kemi bere qe selectimi i dates te jete vetum per muje edhe vit*/
 			onChangeMonthYear: function(year, month) {
 				if(month < 10) {
 					$('#reportDate').val(year + '-' + '0' + month);
@@ -210,9 +223,11 @@ $(document).ready(function () {
 				daysInMonth(month, year);
 			},
 			onShow: function(picker, calendar, inst) {
-				picker.find('table').addClass('alternate-dates');
+				picker.find('table').addClass('alternate-dates');/*Ketu kemi add ni class te dizajnu per te shfaqur vetum mujin dhe viti e jo ditet*/
 			},
 			onSelect: function(dates) {
+				/*Ketu e kemi bere nje for e cila do te ruan te gjith ditet sipas mujve nese p.sh
+				* nese muji asht shkurt ateher do te shfaqen vetum 28 dit */
 				var minDate = dates[0];
 				for (var i = 1; i < dates.length; i++) {
 					if (dates[i].getTime() < minDate.getTime()) {
@@ -221,24 +236,25 @@ $(document).ready(function () {
 				}  // /for
 				var year = minDate.year();
 				var month = minDate.month();
-				daysInMonth(month, year);
+				daysInMonth(month, year);/*Perdorimi i funksionit daysInMonth*/
 			}
 		}); // attendance report date
 
 		function daysInMonth(month,year) {
-			var pc = $.calendars.instance();
-			var dim = pc.daysInMonth(year, month);
+			/*ne kete funksion i kemi pranuar dy parametra */
+			var pc = $.calendars.instance();/*nje instanc te calendarit*/
+			var dim = pc.daysInMonth(year, month);//perodimi i keti funksioni por duke i ruajtur ne ni variabel
 
-			$("#num_of_days").val(dim);
+			$("#num_of_days").val(dim);/*dhe duke shfaqyr ne id num_of_days ku do te shfaqen ditet sipas mujit*/
 		}
-		/*Gjenero raportin */
+		/*Gjenero raportin nese prekim buttonin submit */
 		$("#getAttendanceReport").unbind('submit').bind('submit', function() {
 			var form = $(this);
 
 			var type = $("#type").val();
 			var reportDate = $("#reportDate").val();
 
-
+           /*Me posht jane disa validime nese inputet jane empty*/
 			if(type == "") {
 				$("#type").closest('.form-group').removeClass('has-success').addClass('has-error');
 				$("#type").after('<p class="text-danger">The Type field is required</p>');
@@ -268,7 +284,7 @@ $(document).ready(function () {
 
 				if(type == 1) {
 					// student
-
+                        /*Disa validime*/
 					if($("#className").val() == "") {
 						$("#className").closest('.form-group').removeClass('has-success').addClass('has-error');
 						$("#className").after('<p class="text-danger">The Date field is required</p>');
@@ -290,12 +306,18 @@ $(document).ready(function () {
 					if($("#className").val() && $("#sectionName").val()) {
 						$(".form-group").removeClass('has-error').removeClass('has-success');
 						$('.text-danger').remove();
-
+						/*Me posht keti kometi ne variablen url e cila do te kete ni path dhe disa parametra,ky url do
+						* do ta kete action="pathin e funksionit per realizimin e raportiti" dhe parametrat adekuate te
+						* cilat do te specifikoin llojin e raportit permes dates titpit numrit te ditve dhe section,ClassName
+						* dhe gjdo gje ruhet ne kete variabel url e cila ekzkutohet dhe rezultatet behen load ne div id #report-div
+						* ku do te shfaqet raporti i studentav per ma shum shiqo funksionin e formes getAttendanceReport()*/
 						var url = form.attr('action') + '/' + type + '/' + reportDate + '/' + num_of_days + '/' + className + '/' + sectionName;
 						$("#report-div").load(url);
 					} // /if
 				}
 				else if(type == 2) {
+					/*Ruajtja e pathit te funksionit per realizlimin e raportit per teacher dhe loadimi i ti ne
+					* report-div dhe per ma shum shiqo action path of getAttendanceReport per realizimin e keti raporti*/
 					var url = form.attr('action') + '/' + type + '/' + reportDate + '/' + num_of_days;
 					$("#report-div").load(url);
 				}
@@ -304,6 +326,6 @@ $(document).ready(function () {
 
 		});
 
-	} // /.else report
+	} // /.per  report
 
 });
