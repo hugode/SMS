@@ -47,6 +47,15 @@ class Pages extends MY_Controller {
 			$data['teacherData']=$this->model_teacher->fetchTeacherData();
 		}
 		/*-------------------------------------------------------------------------------*/
+		if ($page=="marksheet")
+		{
+			$this->load->model('model_classes');//looding the model_clases
+			$data['classData']=$this->model_classes->fetchclasesData();
+			/*Loadinf techer model per te mor te dhena dhe per te insertuar*/
+			$this->load->model('model_teacher');
+			$data['teacherData']=$this->model_teacher->fetchTeacherData();
+		}
+		/*-----------------------------------------------------------------------------*/
 		$data['title']=ucfirst($page);
 		if($page=='login'){
 			$this->isLoggedIn();
