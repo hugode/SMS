@@ -49,6 +49,110 @@
 	</div>
 </div>
 </div>
+	<!--Modeli per te krijuar nje marksheet-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="addMarksheetModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Shto Marksheet</h4>
+				</div>
+				<form class="form-horizontal" method="post" id="createMarksheetForm" action="<?php echo base_url('marksheet/create')?>">
+					<div class="modal-body">
+						<div id="add-marksheet-message"></div><!--Shfaqja e mesazhit-->
+						<!--Form grupi-->
+						<div class="form-group">
+							<label for="marksheetName" class="col-sm-4 control-label">Emri i marksheet:</label>
+							<div class="col-sm-8">
+								<input type="text" id="marksheetName" name="marksheetName" class="form-control" placeholder="Emri i marksheet">
+							</div>
+						</div>
+						<!------------------------------------------------------------------------------------------------>
+						<div class="form-group">
+							<label for="examDate" class="col-sm-4 control-label">Data e exam:</label>
+							<div class="col-sm-8">
+								<input type="text" id="examDate" name="examDate" class="form-control" placeholder="Data e marksheet">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" name="submit" class="btn btn-success">Ruaj Ndryshimin</button>
+					</div>
+				</form>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!--Modeli per editimin e  marksheet-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="editMarksheetModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Edito Marksheet</h4>
+				</div>
+				<form class="form-horizontal" method="post" id="editMarksheetForm" action="<?php echo base_url().'marksheet/update'?>">
+					<div class="modal-body">
+						<div id="edit-marksheet-message"></div><!--Shfaqja e mesazhit-->
+						<!--Form grupi-->
+						<div class="form-group">
+							<label for="editMarksheetName" class="col-sm-4 control-label">Emri i Section:</label>
+							<div class="col-sm-8">
+								<input type="text" id="editMarksheetName" name="editMarksheetName" class="form-control" placeholder="Emri i Section">
+							</div>
+						</div>
+						<!------------------------------------------------------------>
+						<div class="form-group">
+							<!--<label for="editTeacherName" class="col-sm-4 control-label">Profesori:</label>-->
+							<div class="col-sm-8">
+								<!--<select value="" class="form-control" name="editTeacherName" id="editTeacherName">
+									<option value=""> Zgjedh Profesorin</option>
+									<?php
+/*									if($teacherData)
+									{
+										foreach ($teacherData as $key=>$value)
+										{
+											*/?>
+											<option value="<?php /*echo $value['teacher_id']*/?>"><?php /*echo $value['fname'] .' '.$value['lname']*/?></option>
+											<?php
+/*										}
+
+									}else{
+										*/?><option value=""> Nuk ka asnje profesor te shtuar</option><?php
+/*									}
+									*/?>
+								</select>-->
+							</div>
+						</div>
+					</div><!-- /.modal-content -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" name="submit" class="btn btn-success">Ruaj Ndryshimin</button>
+					</div>
+				</form>
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</div>
+	<!--Modeli per fshirjen e marksheet-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="removeMarksheetModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Fshirja e Markshet</h4>
+				</div>
+				<div class="modal-body">
+					<div id="remove-section-message"></div><!--Shfaqja e mesazhit-->
+					<p>A jeni i sigurt per fshirjen e Marksheet</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="mbyll" data-dismiss="modal">Mbyll</button>
+					<button type="submit" name="removeBtnMarksheet" id="removeBtnMarksheet" class="btn btn-danger">Po</button>
+				</div>
+
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 
 <?php
