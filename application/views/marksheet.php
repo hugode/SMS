@@ -21,7 +21,7 @@
 					foreach ($classData as $value){
 						?>
 						<li role="presentation"><a role="tab" data-toggle="tab" class="list-group-item classSideBar"  id="classId<?php echo$value['class_id']?>"
-												   onclick="getClassMarksheet(<?php echo$value['class_id']?>)"><b><!--fUNKSIONI getClassSection e perdorim kur ta ndrrojm klasen te
+												   onclick="getClassMarksheet(<?php echo$value['class_id']?>)"><b><!--fUNKSIONI getClassmarksheet e perdorim kur ta ndrrojm klasen te
 						ekzekutohet qaj funksion me qit id te shfaq te dhana-->
 									<?php echo $value['class_name'] ?>(<?php echo $value['numeric_name']?>)
 								</b></a></li>
@@ -42,8 +42,8 @@
 			<div class="panel-body">
 				<div id="message"></div>
 				<div class="result">
-					<!--Ne kete div class result shfaqen te gjitha te dhenat te cilat vin prej funksionit getClassSection()
-					ku bene te mundur permes class id te shfaqen te gjith section te cilat kane kete classid-->
+					<!--Ne kete div class result shfaqen te gjitha te dhenat te cilat vin prej funksionit getClassmarksheet()
+					ku bene te mundur permes class id te shfaqen te gjith marksheet te cilat kane kete classid-->
 				</div>
 			</div>
 	</div>
@@ -96,9 +96,9 @@
 						<div id="edit-marksheet-message"></div><!--Shfaqja e mesazhit-->
 						<!--Form grupi-->
 						<div class="form-group">
-							<label for="editMarksheetName" class="col-sm-4 control-label">Emri i Section:</label>
+							<label for="editMarksheetName" class="col-sm-4 control-label">Emri i marksheet`:</label>
 							<div class="col-sm-8">
-								<input type="text" id="editMarksheetName" name="editMarksheetName" class="form-control" placeholder="Emri i Section">
+								<input type="text" id="editMarksheetName" name="editMarksheetName" class="form-control" placeholder="Emri i marksheet`">
 							</div>
 						</div>
 						<!------------------------------------------------------------>
@@ -142,7 +142,7 @@
 					<h4 class="modal-title">Fshirja e Markshet</h4>
 				</div>
 				<div class="modal-body">
-					<div id="remove-section-message"></div><!--Shfaqja e mesazhit-->
+					<div id="remove-marksheet-message"></div><!--Shfaqja e mesazhit-->
 					<p>A jeni i sigurt per fshirjen e Marksheet</p>
 				</div>
 				<div class="modal-footer">

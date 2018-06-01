@@ -30,10 +30,10 @@ class Marksheet extends MY_Controller
 			$marksheetData = $this->model_marksheet->fetchMarksheetDataByClass($classId);//Ekekutimi i komandes dhe rujatja e saj ne marksheetdata
 
 			$table = '<!--Ketu kemi krijuar nje tablele e cila i shfaq te dhenat ne result in scetion view-->
-            <div class="well">Emri i Klases :<b>' . $classData['class_name'] . '</b><b>' . $classData['numeric_name'] . '</b></div>
+            <div class="well">Emri i Klases :<b>' . $classData['class_name'] . '</b><b>' . $classData['numeric_name'] . '</b> /ID:<b>' . $classData['class_id'] . '</b></div>
             <div id="message"></div>
             <div class="pull pull-right">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addMarksheetModal" onclick="addMarksheet(' . $classId . ')">Shto Marksheet</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addMarksheetModal" id="add" value="'.$classData['class_id'].'">Shto Marksheet</button>
             </div>
             <br/><br/><br/>
 
@@ -86,5 +86,53 @@ class Marksheet extends MY_Controller
 		</table>
 		';
 		echo $table;
+	}
+
+	/*Funksioni per krijimin e marksheet*/
+	public function create($classId=null)
+	{
+		/*KY funksion bene te mundur validmin ne krijimin e marksheetit tash nese sectuion Name asht null jep nje info
+		Dhe nese gjdo gje i ploteson kushtet ather vazhdon me ekzekutimin e komandes ne model_marksheet*/
+		if ($classId)
+		{
+			$validator=array('success'=>false,'message'=>array());
+			$validate_data=array(
+				array(
+					'field'=>'marksheetName',
+					'label'=>'MarksheetName',
+					'rules'=>"required"
+				),
+				array(
+					'field'=>'examDate',
+					'label'=>'Date',
+					'rules'=>"required"
+				),
+			);
+			//Dhe ketu kemi caktuar erroret rregullat
+			$this->form_validation->set_rules($validate_data);
+			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');//Ketu e kemi dizajnu errorin i cili ka mu shfaq
+
+			if($this->form_validation->run()==true)//Nese forma e validimi funksionjon ateher qoi te dhenat ne mdulin model_classes per insertimi
+			{
+				/*Insert data into db form funksionit te cilit do ta perdorim ne model_classes*/
+				$create=$this->model_marksheet->create($classId);
+				if($create===true)
+				{
+					$validator['success']=true;
+					$validator['message']='Procesi per Regjistrimin e Marksheet perfundoi me sukses';
+				}else{
+					$validator['success']=false;
+					$validator['message']='Error :Procesi per Regjistrimin Shkoi Gabim';
+
+				}
+
+			}else{
+				$validator['success']=false;
+				foreach ($_POST as$key=>$value){
+					$validator['message'][$key]=form_error($key);
+				}
+			}
+			echo json_encode($validator);
+		}
 	}
 }
