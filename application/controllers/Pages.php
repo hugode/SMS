@@ -10,7 +10,7 @@ class Pages extends MY_Controller {
 			show_404();
 		}
 		/*-------------------------------------------------------------------------------*/
-		if($page=="setting")//Nese faqja asht settings ngarkoi keto te dhena
+		if($page=="setting"||$page=="student"||$page=="teacher"||$page=="classes"||$page=="section"||$page=="subject"||$page=="marksheet"||$page=="attendance"||$page=="accounting")//Nese faqja asht settings ngarkoi keto te dhena
 		{
 			$this->load->model('model_users');//Ngarko model_users nga model
 			$this->load->library('session');//ngarko session from library

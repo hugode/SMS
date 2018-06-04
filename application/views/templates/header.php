@@ -124,7 +124,7 @@
 			<ul class="nav navbar-nav navbar-right">
 
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <b><?php echo $userdata['fname'].' '.$userdata['lname']?></b><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="<?php echo base_url('setting')?>">Setting</a></li>
 						<li><a href="<?php echo base_url('users/logout')?>">Logout</a></li>
