@@ -135,4 +135,27 @@ class Marksheet extends MY_Controller
 			echo json_encode($validator);
 		}
 	}
+	//Remove funksion
+	public function remove($marksheetId=null)
+	{
+		/*Ketu kemi bere fshirjen e marksheet duke u bazuar ne marksheet id dhe nese fshirja perfundon me sukses ateher
+		ipet nje message se  u fshir me sukses*/
+		/*Kjo funksion ekzekutohet prej marksheet.js e cila thirr kete funksion dhe ky e thirr funksionin remove tek
+		model model_marksheet dhe ai e ekzekuton komanden dhe fshin marksheet sipas marksheetid*/
+		if($marksheetId)
+		{
+			$remove=$this->model_marksheet->remove($marksheetId);
+			if($remove==true)
+			{
+				$validator['success']=true;
+				$validator['message']='Marksheet u fshir me sukses';
+			}else{
+				$validator['success']=false;
+				$validator['message']='Error :Procesi per Fshirje Shkoi Gabim';
+
+			}
+			echo json_encode($validator);
+		}
+
+	}
 }

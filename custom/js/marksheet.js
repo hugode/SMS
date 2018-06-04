@@ -94,3 +94,31 @@ function getClassMarksheet(classId=null) {
 	}
 
 }
+/*Funksioni per fshirjen e marksheet*/
+function removeMarksheet(marksheetId=null,classId=null) {
+	if (marksheetId && classId) {
+		$("#removeBtnMarksheet").unbind('click').bind('click', function () {
+			$.ajax({
+				url: base_url + 'marksheet/remove/' + marksheetId,
+				type: 'post',
+				dataType: 'json',
+				success: function (response) {
+					if (response.success == true) {
+						$("#message").html('<div class="alert alert-success alert-dismissible" style="text-align: center;" role="alert">' +
+							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+							response.message +
+							'</div>');
+						$(".result").load(base_url+'marksheet/fetchMarksheetTable/'+class_id);
+						$("#mbyll").click();
+					} else {
+						$("#message").html('<div class="alert alert-danger alert-dismissible" style="text-align: center;"  role="alert">' +
+							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+							response.message +
+							'</div>');
+					}
+
+				}
+			});
+		});
+	}
+}
