@@ -103,25 +103,9 @@
 						</div>
 						<!------------------------------------------------------------>
 						<div class="form-group">
-							<!--<label for="editTeacherName" class="col-sm-4 control-label">Profesori:</label>-->
+							<label for="editExamDate" class="col-sm-4 control-label">Data e exam:</label>
 							<div class="col-sm-8">
-								<!--<select value="" class="form-control" name="editTeacherName" id="editTeacherName">
-									<option value=""> Zgjedh Profesorin</option>
-									<?php
-/*									if($teacherData)
-									{
-										foreach ($teacherData as $key=>$value)
-										{
-											*/?>
-											<option value="<?php /*echo $value['teacher_id']*/?>"><?php /*echo $value['fname'] .' '.$value['lname']*/?></option>
-											<?php
-/*										}
-
-									}else{
-										*/?><option value=""> Nuk ka asnje profesor te shtuar</option><?php
-/*									}
-									*/?>
-								</select>-->
+								<input type="text" id="editExamDate" name="editExamDate" class="form-control" placeholder="Data e marksheet">
 							</div>
 						</div>
 					</div><!-- /.modal-content -->

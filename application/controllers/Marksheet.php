@@ -158,4 +158,60 @@ class Marksheet extends MY_Controller
 		}
 
 	}
+	//funksion for fetching data for marksheet edit funksion
+	public function fetchMarksheetByClassMarksheet($marksheetId=null)
+	{
+		if ($marksheetId)
+		{/*Nese kemi section id ateher ekzekutoim komanden te cilen asht me posht
+		   Ku ben te mundur ncerrjen e te dhenav ne baze te sectuion id  dhe i shfaq si respons json encode*/
+			$marksheetData=$this->model_marksheet->fetchMarksheetByClassMarksheet($marksheetId);
+			echo json_encode($marksheetData);
+		}
+	}
+	//funksioni per editimin e te dhenav te marksheet
+	public function update($marksheetId=null,$classId=null)
+	{
+		/*Funksioni per editimin e te dhenav te sectionit nese gjdo kusht plotesohet aather ekzekutimi vazhdon me sukses*/
+		if ($marksheetId && $classId)
+		{
+			$validator=array('success'=>false,'message'=>array());
+			$validate_data=array(
+				array(
+					'field'=>'editMarksheetName',
+					'label'=>'Emri i Marksheet',
+					'rules'=>"required"
+				),
+				array(
+					'field'=>'editExamDate',
+					'label'=>'Date',
+					'rules'=>"required"
+				),
+			);
+			//Dhe ketu kemi caktuar erroret rregullat
+			$this->form_validation->set_rules($validate_data);
+			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');//Ketu e kemi dizajnu errorin i cili ka mu shfaq
+
+			if($this->form_validation->run()==true)//Nese forma e validimi funksionjon ateher qoi te dhenat ne mdulin model_classes per insertimi
+			{
+				/*Insert data into db form funksionit te cilit do ta perdorim ne model_classes*/
+				$update=$this->model_marksheet->update($marksheetId,$classId);
+				if($update===true)
+				{
+					$validator['success']=true;
+					$validator['message']='Procesi per Ndryshimin e Marksheet perfundoi me sukses';
+				}else{
+					$validator['success']=false;
+					$validator['message']='Error :Procesi per Ndryshim Shkoi Gabim';
+
+				}
+
+			}else{
+				$validator['success']=false;
+				foreach ($_POST as$key=>$value){
+					$validator['message'][$key]=form_error($key);
+				}
+			}
+			echo json_encode($validator);
+		}
+	}
 }

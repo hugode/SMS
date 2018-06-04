@@ -9,6 +9,7 @@ class model_marksheet extends CI_Model
 		$this->load->model('model_section');
 		/*Loadinf Model_subject(Ngarkimi i subject model*/
 		$this->load->model('model_subject');
+		/*Loding the model_student*/
 		$this->load->model('model_student');
 	}
 
@@ -84,5 +85,53 @@ class model_marksheet extends CI_Model
 			return ($result==true&&$marksheet_studentResult==true)?true:false;//Kthe rezultat nese fshihen ose jo
 		}
 
+	}
+	/*Fetching data for marksheet*/
+	public function fetchMarksheetByClassMarksheet($marksheet=null)
+	{
+		/*Ketu kemi bere fetch sectionet*/
+		$sql="SELECT * FROM marksheet WHERE marksheet_id=?";
+		$query=$this->db->query($sql,$marksheet);
+		return $query->row_array();
+	}
+	//funksioni per editimin e te dhenave te marksheet
+	public function update($marksheetId=null,$classId=null)
+	{
+		if ($marksheetId&&$classId) {
+			$sectionData=$this->model_section->fetchSectionDataByClass($classId);
+			/*I morim te dhanat prej inputav*/
+
+			$update_data = array(
+				'marksheet_name' => $this->input->post("editMarksheetName"),
+				'marksheet_date' => $this->input->post("editExamDate")
+			);
+			$this->db->where('marksheet_id', $marksheetId);//tregoim se ne cilen id te marksheet me u ndryshi
+			$this->db->update('marksheet',$update_data);//dhe ketu behet ndryshimi
+
+			$this->db->where('marksheet_id',$marksheetId);
+			$this->db->where('class_id',$classId);
+			$this->db->delete('marksheet_student');
+
+			foreach ($sectionData as $key=>$value) {
+				$studentData=$this->model_student->fetchStudentDataByClassAndSection($classId,$value['section_id']);
+				$subjectData=$this->model_subject->fetchSubjectDataByClass($classId);
+				foreach ($studentData as $studentKey=>$studentValue) {
+					foreach ($subjectData as $keyS => $subjectValue) {
+						$marksheet_studentData=array(
+							'student_id'=>$studentValue['student_id'],
+							'subject_id'=>$subjectValue['subject_id'],
+							'marksheet_id'=>$marksheetId,
+							'class_id'=>$classId,
+							'section_id'=>$value['section_id']
+
+						);
+						$this->db->insert('marksheet_student',$marksheet_studentData);
+					}
+				}
+
+			}
+			return true;//ketu nese result asht true kthe true perndryshe false
+		}
+		return false;
 	}
 }

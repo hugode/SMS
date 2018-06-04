@@ -94,6 +94,84 @@ function getClassMarksheet(classId=null) {
 	}
 
 }
+/*Funksioni per editimin e section*/
+function editMarksheet(marksheetId=null,classId=null) {
+	$("#editExamDate").calendarsPicker({
+		dateFormat:'yyyy-mm-dd'
+	});
+	if(marksheetId && classId)
+	{
+		/*Ketu kemi nje editim i cili behet ne baze te sectionid dhe te classid ku i merr te dhenat permes funksionit fetchsectionbyclassname
+		* dhe shfaqi ne menyr specifike ne inpute te edit formes dhe nese behet ndonje ndryshim kur bejm submir ekzekuto komanden me posht
+		* ku mundeson ndryshimin e te dhenav ne databaz permes sectionid*/
+		$.ajax({
+			url:base_url+'marksheet/fetchMarksheetByClassMarksheet/'+marksheetId,
+			type:'post',
+			dataType:'json',
+			success:function (response) {
+				$("#editMarksheetName").val(response.marksheet_name);
+				$("#editExamDate").val(response.marksheet_date);
+
+				$("#editMarksheetForm").unbind('submit').bind('submit',function () {
+					var form=$(this);
+					var url=form.attr('action');
+					var type=form.attr('method');
+					$.ajax({
+						url:url+'/'+marksheetId+'/'+classId,
+						type:type,
+						data:form.serialize(),
+						dataType:'json',
+						success:function (response) {
+							if(response.success==true){
+
+								$("#edit-marksheet-message").html('<div class="alert alert-success alert-dismissible" style="text-align: center;" role="alert">'+
+									'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+									response.message+
+									'</div>');
+								$('.text-danger').remove();
+								$(".result").load(base_url+'marksheet/fetchMarksheetTable/'+classId);
+								$('.form-group').removeClass('has-error').removeClass('has-success')
+								$('.text-danger').remove();
+								$('#editMarksheetForm').reset();
+
+							}else{
+								if(response.message instanceof Object){
+									$.each(response.message,function (index,value){
+										var key=$("#"+index);
+										key.closest(".form-group")
+											.removeClass('has-error')
+											.removeClass('has-success')
+											.addClass(value.length > 0 ? 'has-error' : 'has-success')
+											.find('.text-danger').remove();
+
+										key.after(value);
+									});
+
+
+								}else{
+									$('.text-danger').remove();
+									$('.text-group').removeClass('has-error').removeClass('has-success');
+
+									$('#edit-marksheet-message').html('<div class="alert alert-warning alert-dismissible" role="alert">'+
+										'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+										response.message+
+										'</div>');
+								}
+							}
+
+
+						}
+
+
+					});
+					return false;
+				})
+
+			}
+		});
+	}
+
+}
 /*Funksioni per fshirjen e marksheet*/
 function removeMarksheet(marksheetId=null,classId=null) {
 	if (marksheetId && classId) {
@@ -108,7 +186,7 @@ function removeMarksheet(marksheetId=null,classId=null) {
 							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
 							response.message +
 							'</div>');
-						$(".result").load(base_url+'marksheet/fetchMarksheetTable/'+class_id);
+						$(".result").load(base_url+'marksheet/fetchMarksheetTable/'+classId);
 						$("#mbyll").click();
 					} else {
 						$("#message").html('<div class="alert alert-danger alert-dismissible" style="text-align: center;"  role="alert">' +
@@ -120,5 +198,6 @@ function removeMarksheet(marksheetId=null,classId=null) {
 				}
 			});
 		});
+		return false;
 	}
 }
