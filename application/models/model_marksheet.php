@@ -89,7 +89,7 @@ class model_marksheet extends CI_Model
 	/*Fetching data for marksheet*/
 	public function fetchMarksheetByClassMarksheet($marksheet=null)
 	{
-		/*Ketu kemi bere fetch sectionet*/
+		/*Ketu kemi bere fetch marksheet*/
 		$sql="SELECT * FROM marksheet WHERE marksheet_id=?";
 		$query=$this->db->query($sql,$marksheet);
 		return $query->row_array();
@@ -107,7 +107,8 @@ class model_marksheet extends CI_Model
 			);
 			$this->db->where('marksheet_id', $marksheetId);//tregoim se ne cilen id te marksheet me u ndryshi
 			$this->db->update('marksheet',$update_data);//dhe ketu behet ndryshimi
-
+			/*Ne rastin se kemi update marksheet ateher bejm fshirjen e te dhenac tek marksheet_Student dhe ateher
+			i insertoim perser me te dhena te reja qe ndodhin ne rasin e edtimit te marksheet*/
 			$this->db->where('marksheet_id',$marksheetId);
 			$this->db->where('class_id',$classId);
 			$this->db->delete('marksheet_student');

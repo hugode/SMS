@@ -2,7 +2,7 @@ var base_url=$('#base_url').val();
 $(document).ready(function () {
 	var kerkesa=$("#kerkesa").text();
 	if(kerkesa=='mngms') {/*Gjdo gje brenda keti statment do te jete per menagjimin e marksheet per editim per add edhe remove*/
-
+	$("#manageMarksheet").addClass('active');
 	var classSideBar=$(".classSideBar").attr('id');
 	var classId=classSideBar.substring(7);
 	getClassMarksheet(classId);/*Ketu kemi thirrur funksioni me posht dmth ne ready function ne menyr automatike thirret ky funksion*/
@@ -132,7 +132,7 @@ function editMarksheet(marksheetId=null,classId=null) {
 								$(".result").load(base_url+'marksheet/fetchMarksheetTable/'+classId);
 								$('.form-group').removeClass('has-error').removeClass('has-success')
 								$('.text-danger').remove();
-								$('#editMarksheetForm').reset();
+								//$('#editMarksheetForm').reset();
 
 							}else{
 								if(response.message instanceof Object){

@@ -11,7 +11,7 @@ class Pages extends MY_Controller {
 		}
 		/*-------------------------------------------------------------------------------*/
 		if($page=="setting"||$page=="student"||$page=="teacher"||$page=="classes"||$page=="section"||
-			$page=="subject"||$page=="marksheet"||$page=="attendance"||$page=="accounting"||$page=="dashboard")//Nese faqja asht settings ngarkoi keto te dhena
+			$page=="subject"||$page=="marksheet"||$page=="attendance"||$page=="accounting"||$page=="dashboard"||$page=="Login")//Nese faqja asht settings ngarkoi keto te dhena
 		{
 			$this->load->model('model_users');//Ngarko model_users nga model
 			$this->load->library('session');//ngarko session from library

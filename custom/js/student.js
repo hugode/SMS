@@ -5,6 +5,7 @@ $(document).ready(function () {
 
 	var kerkesa=$("#kerkesa").text();
 	if(kerkesa=='addst') {
+		$("#addStudentNav").addClass('active');
 		/*Kalenderi per dob*/
 		$("#dob").calendarsPicker({
 			dateFormat: 'yyyy-mm-dd'
@@ -102,6 +103,7 @@ $(document).ready(function () {
 		})
 	}/*Te gjitha funksionet per optionin addst*/
 	else if(kerkesa=='bulkst')/*Te gjitha funksonet per optionin bulkst*/{
+		$("#addBulkStudentNav").addClass('active');
 		$("#createBulkForm").unbind('submit').bind('submit', function () {
 			var form = $(this);
 			var url = form.attr('action');
@@ -156,6 +158,7 @@ $(document).ready(function () {
 		})
 	}
 	else if(kerkesa=='mgst'){/*Te gjitha funksonet per mgst*/
+		$("#manageStudentNav").addClass('active');
 		var classSideBar=$(".classSideBar").attr('id');
 		var class_Id=classSideBar.substring(7);
 		getClassSection(class_Id);
