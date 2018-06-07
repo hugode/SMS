@@ -1,4 +1,10 @@
-<?php if ($this->input->get('opt')=='' || !$this->input->get('opt'))
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hugo
+ * Date: 3/6/2018
+ */
+if ($this->input->get('opt')=='' || !$this->input->get('opt'))
 {show_404();}?>
 <div id="kerkesa" style="display: none;"><?php echo $this->input->get('opt');?></div>
 <ol class="breadcrumb">

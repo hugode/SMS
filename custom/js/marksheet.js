@@ -13,7 +13,7 @@ $(document).ready(function () {
 			var url=form.attr('action');
 			var type=form.attr('method');
 			$.ajax({
-				url:url+'/'+class_id,
+				url:url+'/'+class_id,//Dergimi i class_id
 				type:type,
 				data:form.serialize(),
 				dataType:'json',

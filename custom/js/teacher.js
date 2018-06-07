@@ -3,9 +3,8 @@ var base_url=$('#base_url').val();
 $(document).ready(function () {
 	manageTeacherTable=$("#manageTeacherTable").DataTable({
 		'ajax':base_url+'teacher/fetchTeacherData',
-		'order':[]
+		'order':[],
 	});
-
 	/*Krijimi i funksionit  --------------------Kliko ne teacher add model*/
 	/*-----------------------------------------Funksioni per notifaction -------------------------------------------------*/
 	$("#addTeacherModelBtn").unbind('click').bind('click',function () {
